@@ -7,23 +7,27 @@ public class Door : MonoBehaviour
     public int moveBy;
     public float speed = 1.0f;
 
+    public bool puzzleDoor;
+    public int puzzlePairs = 0;
     public int locks = 0;
 
     public bool moving = false;
     public bool opening = true;
+    public bool hold;
     private Vector3 startPos;
     private Vector3 endPos;
     private float delay = 0.0f;
     public string stringToSearchFor;
 
     public MicrophoneDemo microphone;
-
+    public Audio sound;
 
     void Start()
     {
         startPos = transform.position;
         endPos = startPos;
         endPos.y += moveBy;
+
     }
 
     // Update is called once per frame
@@ -31,9 +35,11 @@ public class Door : MonoBehaviour
     {
         if (moving)
         {
+            
             if (opening)
             {
                 MoveDoor(endPos);
+                
             }
             else
             {
@@ -44,10 +50,17 @@ public class Door : MonoBehaviour
 
     void MoveDoor(Vector3 goalPos)
     {
+        if (puzzleDoor)
+        {
+            sound.PlaySound();
+        }
         float dist = Vector3.Distance(transform.position, goalPos);
+        
         if (dist > .1f)
         {
-            transform.position = Vector3.Lerp(transform.position, goalPos, speed * Time.deltaTime);
+
+            transform.position = Vector3.Lerp(transform.position, goalPos, (speed / 10) * Time.deltaTime);
+            
         }
         else
         {
@@ -56,13 +69,19 @@ public class Door : MonoBehaviour
                 delay += Time.deltaTime;
                 if (delay > 1.5f)
                 {
-                    opening = false;
+                    if (!hold)
+                    {
+                        opening = false;
+                    }
                 }
+                
             }
             else
             {
+
                 moving = false;
                 opening = true;
+
             }
         }
     }
@@ -83,11 +102,26 @@ public class Door : MonoBehaviour
             if(microphone.testText.Contains(stringToSearchFor))
             {
                 print("check2");
-                if (moving == false)
+                if (puzzleDoor)
                 {
-                    print("check3");
-                    moving = true;
-                    microphone.TaskCompleted();
+                    if (locks == puzzlePairs)
+                    {
+                        if (moving == false)
+                        {
+                            print("check3");
+                            moving = true;
+                            microphone.TaskCompleted();
+                        }
+                    }
+                }
+                else
+                { 
+                    if (moving == false)
+                    {
+                        print("check3");
+                        moving = true;
+                        microphone.TaskCompleted();
+                    }
                 }
             }
             

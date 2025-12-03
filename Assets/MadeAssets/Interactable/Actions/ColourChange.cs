@@ -15,7 +15,7 @@ public class ColourChange : MonoBehaviour
 
     [Header("Do not change Variables")]
     public string colourCheck;
-
+    
     private bool runOnce = false;
 
     private void OnTriggerStay(Collider collision)
@@ -39,7 +39,6 @@ public class ColourChange : MonoBehaviour
         { "red", Color.red },
         { "green", Color.green },
         { "blue", Color.blue },
-        { "white", Color.white },
         { "black", Color.black },
         { "pink", Color.pink },
         { "purple", Color.purple },
@@ -56,7 +55,7 @@ public class ColourChange : MonoBehaviour
             }
             else
             {
-                print("Color not found: " + colorName);
+                print("Colour not found: " + colorName);
             }
     }
 
@@ -89,10 +88,11 @@ public class ColourChange : MonoBehaviour
         if (!changeable)
         {
             Random rnd = new();
-            string[] colours = { "red", "green", "blue", "white", "black", "pink", "purple", "yellow" };
+            string[] colours = { "red", "green", "blue", "black", "pink", "purple", "yellow" };
             int listNum = rnd.Next(colours.Length);
             ChangeColor(colours[listNum]);
             colourCheck = colours[listNum];
+            door.puzzlePairs += 1;
         }
     }
 
