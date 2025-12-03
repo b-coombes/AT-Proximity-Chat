@@ -7,6 +7,8 @@ public class Door : MonoBehaviour
     public int moveBy;
     public float speed = 1.0f;
 
+    public int locks = 0;
+
     public bool moving = false;
     public bool opening = true;
     private Vector3 startPos;
