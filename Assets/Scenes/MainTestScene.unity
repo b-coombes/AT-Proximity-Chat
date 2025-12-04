@@ -353,7 +353,7 @@ GameObject:
   - component: {fileID: 419686496}
   - component: {fileID: 419686495}
   m_Layer: 0
-  m_Name: Door (1)
+  m_Name: 2nd Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -879,7 +879,7 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: b3b7ea1e42ae9c545b5bcdfd4244b361, type: 2}
   microphone: {fileID: 1142598068}
   checks: {fileID: 0}
-  door: {fileID: 0}
+  door: {fileID: 419686497}
   changeable: 1
   colourCheck: 
 --- !u!23 &650307151
@@ -2249,7 +2249,7 @@ GameObject:
   - component: {fileID: 1112613569}
   - component: {fileID: 1112613573}
   m_Layer: 0
-  m_Name: Door
+  m_Name: 1st Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2767,7 +2767,7 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: b3b7ea1e42ae9c545b5bcdfd4244b361, type: 2}
   microphone: {fileID: 1142598068}
   checks: {fileID: 0}
-  door: {fileID: 0}
+  door: {fileID: 419686497}
   changeable: 1
   colourCheck: 
 --- !u!1 &1178637453
@@ -3560,7 +3560,7 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: b3b7ea1e42ae9c545b5bcdfd4244b361, type: 2}
   microphone: {fileID: 1142598068}
   checks: {fileID: 0}
-  door: {fileID: 0}
+  door: {fileID: 419686497}
   changeable: 1
   colourCheck: 
 --- !u!23 &1376888311
