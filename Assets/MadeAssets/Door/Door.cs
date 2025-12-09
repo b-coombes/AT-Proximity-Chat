@@ -50,17 +50,16 @@ public class Door : MonoBehaviour
 
     void MoveDoor(Vector3 goalPos)
     {
-        if (puzzleDoor)
-        {
-            sound.PlaySound();
-        }
+        
         float dist = Vector3.Distance(transform.position, goalPos);
         
         if (dist > .1f)
         {
-
             transform.position = Vector3.Lerp(transform.position, goalPos, (speed / 10) * Time.deltaTime);
-            
+            if (puzzleDoor)
+            {
+                sound.PlaySound();
+            }
         }
         else
         {
