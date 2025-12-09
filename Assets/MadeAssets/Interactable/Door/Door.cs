@@ -18,6 +18,8 @@ public class Door : MonoBehaviour
     private Vector3 endPos;
     private float delay = 0.0f;
     public string stringToSearchFor;
+    public string stringToSearchForFailsafe = "backup word";
+    public bool stringCheckBool;
 
     public MicrophoneDemo microphone;
     public Audio sound;
@@ -97,19 +99,20 @@ public class Door : MonoBehaviour
     {
         if (collision.transform.gameObject.name == "Player")
         {
-            print("check1");
-            if(microphone.testText.Contains(stringToSearchFor))
+            
+            if(microphone.testText.Contains(stringToSearchFor) | microphone.testText.Contains(stringToSearchForFailsafe))
             {
-                print("check2");
+                stringCheckBool = true;
                 if (puzzleDoor)
                 {
                     if (locks == puzzlePairs)
                     {
                         if (moving == false)
                         {
-                            print("check3");
+                            print("Opening second");
                             moving = true;
                             microphone.TaskCompleted();
+                            microphone.displayText(stringToSearchFor);
                         }
                     }
                 }
@@ -117,9 +120,10 @@ public class Door : MonoBehaviour
                 { 
                     if (moving == false)
                     {
-                        print("check3");
+                        print("Opening first");
                         moving = true;
                         microphone.TaskCompleted();
+                        microphone.displayText(stringToSearchFor);
                     }
                 }
             }
