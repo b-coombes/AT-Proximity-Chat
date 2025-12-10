@@ -27,7 +27,7 @@ namespace Whisper.Samples
 
         public string testText;
 
-        private string _buffer;
+        //private string _buffer;
 
         private void Awake()
         {
@@ -60,12 +60,12 @@ namespace Whisper.Samples
 
         }
 
-
+        /*
         private void OnVadChanged(bool vadStop)
         {
             microphoneRecord.vadStop = vadStop;
         }
-
+        */
         private void OnButtonPressed()
         {
 
@@ -84,7 +84,7 @@ namespace Whisper.Samples
         private async void OnRecordStop(AudioChunk recordedAudio)
         {
 
-            _buffer = "";
+            //_buffer = "";
 
             var sw = new Stopwatch();
             sw.Start();
@@ -113,7 +113,7 @@ namespace Whisper.Samples
             
         }
 
-        public void displayText(string displayText)
+        public void DisplayText(string displayText)
         {
             {
                 outputText.text = displayText.ToUpper();

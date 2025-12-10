@@ -5,7 +5,7 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     public Rigidbody rigid_body;
     public Transform head;
-    public Camera camera;
+    public new Camera camera;
 
 
     [Header("configurations")]
@@ -27,15 +27,7 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * 2f);
-    }
-
-
-
-
+   
     private void FixedUpdate()
     {
         Vector3 new_velocity = Vector3.up * rigid_body.linearVelocity.y;
@@ -44,6 +36,15 @@ public class PlayerController : MonoBehaviour
         new_velocity.z = Input.GetAxis("Vertical") * speed;
         rigid_body.linearVelocity = transform.TransformDirection(new_velocity);
     }
+
+
+ // Update is called once per frame
+    void Update()
+    {
+        transform.Rotate(2f * Input.GetAxis("Mouse X") * Vector3.up);
+    }
+
+
 
     private void LateUpdate()
     {

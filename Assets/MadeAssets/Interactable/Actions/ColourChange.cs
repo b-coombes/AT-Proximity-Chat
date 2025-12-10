@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using UnityEngine;
 using Whisper.Samples;
 using Random = System.Random;
@@ -50,7 +51,7 @@ public class ColourChange : MonoBehaviour
         }
     }
 
-    private Dictionary<string, Color> colorDictionary = new Dictionary<string, Color>
+    private static readonly Dictionary<string, Color> colorDictionary = new()
     {
         { "red", Color.red },
         { "green", Color.green },
@@ -58,9 +59,9 @@ public class ColourChange : MonoBehaviour
         { "black", Color.black },
         { "pink", Color.pink },
         { "yellow", Color.yellow }
-
     };
-    private Dictionary<string, string> colorCheckDictionary = new Dictionary<string, string>
+
+    private static readonly Dictionary<string, string> colorCheckDictionary = new()
     {
         { "rad", "red" },
         { "right","red" },
@@ -144,7 +145,7 @@ public class ColourChange : MonoBehaviour
                     door.locks += 1;
                     runOnce = true;
                     matching = true;
-                    microphone.displayText(colorCheck);
+                    microphone.DisplayText(colorCheck);
                 }
             }
             if (colorCheck != checks.colorCheck)

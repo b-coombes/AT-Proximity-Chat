@@ -112,7 +112,7 @@ public class Door : MonoBehaviour
                             print("Opening second");
                             moving = true;
                             microphone.TaskCompleted();
-                            microphone.displayText(stringToSearchFor);
+                            microphone.DisplayText(stringToSearchFor);
                         }
                     }
                 }
@@ -123,7 +123,7 @@ public class Door : MonoBehaviour
                         print("Opening first");
                         moving = true;
                         microphone.TaskCompleted();
-                        microphone.displayText(stringToSearchFor);
+                        microphone.DisplayText(stringToSearchFor);
                     }
                 }
             }

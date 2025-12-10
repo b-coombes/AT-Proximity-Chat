@@ -592,7 +592,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveBy: 8
-  speed: 1
+  speed: 2
   puzzleDoor: 1
   puzzlePairs: 0
   locks: 0
@@ -2451,7 +2451,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveBy: 8
-  speed: 1
+  speed: 3
   puzzleDoor: 0
   puzzlePairs: 0
   locks: 0
@@ -4476,7 +4476,7 @@ MonoBehaviour:
   m_text: 'To open this door requires a word
 
 
-    one of which you''ll find upward'
+    One of which you''ll find upward'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
