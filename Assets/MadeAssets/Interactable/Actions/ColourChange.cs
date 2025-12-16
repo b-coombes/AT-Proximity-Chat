@@ -6,6 +6,7 @@ using Random = System.Random;
 
 public class ColourChange : MonoBehaviour
 {
+    [Header("References")]
     public Material material;
     public MicrophoneDemo microphone;
     public ColourChange checks;
@@ -51,7 +52,7 @@ public class ColourChange : MonoBehaviour
         }
     }
 
-    private static readonly Dictionary<string, Color> colorDictionary = new()
+    private static readonly Dictionary<string, Color> colorDictionary = new()       //dictionary to check colour
     {
         { "red", Color.red },
         { "green", Color.green },
@@ -61,7 +62,7 @@ public class ColourChange : MonoBehaviour
         { "yellow", Color.yellow }
     };
 
-    private static readonly Dictionary<string, string> colorCheckDictionary = new()
+    private static readonly Dictionary<string, string> colorCheckDictionary = new()     //dictionary to catch translation errors
     {
         { "rad", "red" },
         { "right","red" },
@@ -72,7 +73,7 @@ public class ColourChange : MonoBehaviour
 
     public void ChangeColor(string colorName)
     {
-        if (colorDictionary.TryGetValue(colorName, out Color newColor))
+        if (colorDictionary.TryGetValue(colorName, out Color newColor))         //if first dictionary match
         {
             GetComponent<Renderer>().material.color = newColor;
             microphone.TaskCompleted();
@@ -81,7 +82,7 @@ public class ColourChange : MonoBehaviour
         }
         else
         {
-            if (colorCheckDictionary.TryGetValue(colorName, out string colorTranslateErrorCatch))
+            if (colorCheckDictionary.TryGetValue(colorName, out string colorTranslateErrorCatch))           //if second dictionary match
             {
                 colorDictionary.TryGetValue(colorTranslateErrorCatch, out Color newColor2);
                 GetComponent<Renderer>().material.color = newColor2;
@@ -89,7 +90,7 @@ public class ColourChange : MonoBehaviour
                 colorCheck = colorTranslateErrorCatch;
                 print("String input: " + colorName + ", Colour out: " + colorTranslateErrorCatch);
             }
-            else {
+            else {                                                                                          //else no matches
                 print("Colour not found: " + colorName);
                 microphone.testText = "";
             } 

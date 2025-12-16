@@ -27,12 +27,9 @@ namespace Whisper.Samples
 
         public string testText;
 
-        //private string _buffer;
 
         private void Awake()
         {
-            //whisper.OnNewSegment += OnNewSegment;
-
             microphoneRecord.OnRecordStop += OnRecordStop;
 
         }
@@ -60,12 +57,6 @@ namespace Whisper.Samples
 
         }
 
-        /*
-        private void OnVadChanged(bool vadStop)
-        {
-            microphoneRecord.vadStop = vadStop;
-        }
-        */
         private void OnButtonPressed()
         {
 
@@ -83,8 +74,6 @@ namespace Whisper.Samples
 
         private async void OnRecordStop(AudioChunk recordedAudio)
         {
-
-            //_buffer = "";
 
             var sw = new Stopwatch();
             sw.Start();
@@ -104,8 +93,6 @@ namespace Whisper.Samples
             
             if (proxCheck)
             {
-                //outputText.text = text.ToUpper();
-                //outputText.text = outputText.text.Remove(outputText.text.Length - 1);
                 testText = text.ToLower();
                 testText = testText.Remove(testText.Length - 1);
                 testText = testText.Substring(1);
@@ -121,20 +108,7 @@ namespace Whisper.Samples
             }
         }
         
-        
-        
-        /*
-        private void OnNewSegment(WhisperSegment segment)
-        {
-            if (!streamSegments || !outputText)
-                return;
 
-            _buffer += segment.Text;
-            outputText.text = _buffer;//  + "...";
-
-
-        }
-        */
         public void TaskCompleted()
         {
             //outputText.text = "";
