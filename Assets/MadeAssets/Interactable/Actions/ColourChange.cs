@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using UnityEngine;
 using Whisper.Samples;
 using Random = System.Random;
 
 public class ColourChange : MonoBehaviour
 {
+    [Header("References")]
     public Material material;
     public MicrophoneDemo microphone;
     public ColourChange checks;
@@ -14,9 +16,25 @@ public class ColourChange : MonoBehaviour
     public bool changeable = false;
 
     [Header("Do not change Variables")]
-    public string colourCheck;
+    public string colorCheck;
 
+    public bool matching;
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     private bool runOnce = false;
+
+    
+
+
+
 
     private void OnTriggerStay(Collider collision)
     {
@@ -34,30 +52,49 @@ public class ColourChange : MonoBehaviour
         }
     }
 
-    private Dictionary<string, Color> colorMap = new Dictionary<string, Color>
+    private static readonly Dictionary<string, Color> colorDictionary = new()       //dictionary to check colour
     {
         { "red", Color.red },
         { "green", Color.green },
         { "blue", Color.blue },
-        { "white", Color.white },
         { "black", Color.black },
         { "pink", Color.pink },
-        { "purple", Color.purple },
         { "yellow", Color.yellow }
+    };
+
+    private static readonly Dictionary<string, string> colorCheckDictionary = new()     //dictionary to catch translation errors
+    {
+        { "rad", "red" },
+        { "right","red" },
+        { "pinkt", "pink" },
+        { "yello", "yellow" },
+        { "hello", "blue" }
     };
 
     public void ChangeColor(string colorName)
     {
-            if (colorMap.TryGetValue(colorName, out Color newColor))
+        if (colorDictionary.TryGetValue(colorName, out Color newColor))         //if first dictionary match
+        {
+            GetComponent<Renderer>().material.color = newColor;
+            microphone.TaskCompleted();
+            colorCheck = colorName;
+            print("Colour: " + colorName);
+        }
+        else
+        {
+            if (colorCheckDictionary.TryGetValue(colorName, out string colorTranslateErrorCatch))           //if second dictionary match
             {
-                GetComponent<Renderer>().material.color = newColor;
+                colorDictionary.TryGetValue(colorTranslateErrorCatch, out Color newColor2);
+                GetComponent<Renderer>().material.color = newColor2;
                 microphone.TaskCompleted();
-                colourCheck = colorName;
+                colorCheck = colorTranslateErrorCatch;
+                print("String input: " + colorName + ", Colour out: " + colorTranslateErrorCatch);
             }
-            else
-            {
-                print("Color not found: " + colorName);
-            }
+            else {                                                                                          //else no matches
+                print("Colour not found: " + colorName);
+                microphone.testText = "";
+            } 
+        }
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -89,10 +126,11 @@ public class ColourChange : MonoBehaviour
         if (!changeable)
         {
             Random rnd = new();
-            string[] colours = { "red", "green", "blue", "white", "black", "pink", "purple", "yellow" };
+            string[] colours = { "red", "green", "blue", "black", "pink", "yellow" };
             int listNum = rnd.Next(colours.Length);
             ChangeColor(colours[listNum]);
-            colourCheck = colours[listNum];
+            colorCheck = colours[listNum];
+            door.puzzlePairs += 1;
         }
     }
 
@@ -101,20 +139,23 @@ public class ColourChange : MonoBehaviour
     {
         if (!changeable)
         {
-            if(colourCheck == checks.colourCheck)
+            if(colorCheck == checks.colorCheck)
             {
                 if (!runOnce)
                 {
                     door.locks += 1;
                     runOnce = true;
+                    matching = true;
+                    microphone.DisplayText(colorCheck);
                 }
             }
-            if (colourCheck != checks.colourCheck)
+            if (colorCheck != checks.colorCheck)
             {
                 if (runOnce)
                 {
                     door.locks -= 1;
                     runOnce = false;
+                    matching = false;
                 }
             }
         }

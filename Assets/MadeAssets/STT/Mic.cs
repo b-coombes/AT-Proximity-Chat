@@ -1,11 +1,12 @@
+using System.Collections;
 using System.Diagnostics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using Whisper.Utils;
-using System.Collections;
+using static System.Net.Mime.MediaTypeNames;
 using Button = UnityEngine.UI.Button;
 using Toggle = UnityEngine.UI.Toggle;
-using Unity.VisualScripting;
 
 namespace Whisper.Samples
 {
@@ -21,17 +22,14 @@ namespace Whisper.Samples
         public bool proxCheck = false;
         [Header("UI")]
 
-        public Text outputText;
-        public Text micStatus;
+        public UnityEngine.UI.Text outputText;
+        public UnityEngine.UI.Text micStatus;
 
         public string testText;
 
-        private string _buffer;
 
         private void Awake()
         {
-            //whisper.OnNewSegment += OnNewSegment;
-
             microphoneRecord.OnRecordStop += OnRecordStop;
 
         }
@@ -59,12 +57,6 @@ namespace Whisper.Samples
 
         }
 
-
-        private void OnVadChanged(bool vadStop)
-        {
-            microphoneRecord.vadStop = vadStop;
-        }
-
         private void OnButtonPressed()
         {
 
@@ -83,8 +75,6 @@ namespace Whisper.Samples
         private async void OnRecordStop(AudioChunk recordedAudio)
         {
 
-            _buffer = "";
-
             var sw = new Stopwatch();
             sw.Start();
 
@@ -100,27 +90,25 @@ namespace Whisper.Samples
                 text = "(No input detected) ";
             }
 
+            
             if (proxCheck)
             {
-                outputText.text = text.ToUpper();
-                outputText.text = outputText.text.Remove(outputText.text.Length - 1);
                 testText = text.ToLower();
                 testText = testText.Remove(testText.Length - 1);
                 testText = testText.Substring(1);
             }
+            
         }
-        /*
-        private void OnNewSegment(WhisperSegment segment)
+
+        public void DisplayText(string displayText)
         {
-            if (!streamSegments || !outputText)
-                return;
+            {
+                outputText.text = displayText.ToUpper();
 
-            _buffer += segment.Text;
-            outputText.text = _buffer;//  + "...";
-
-
+            }
         }
-        */
+        
+
         public void TaskCompleted()
         {
             //outputText.text = "";
